@@ -1,0 +1,144 @@
+.header {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  width: 100%;
+  background: white;
+}
+
+.headerContent {
+  max-width: 1500px;
+  margin: auto;
+}
+
+.logoText {
+  padding: 10px;
+}
+
+.links {
+  display: flex;
+  gap: 10px;
+  margin: auto;
+
+  a {
+    color: #6B6B6B;
+
+    &:hover {
+      color: #000;
+    }
+  }
+}
+
+.content {
+  max-width: 888px;
+  margin: auto;
+  margin-top: 72px;
+  margin-bottom: 72px;
+  padding-top: 44px;
+  padding-bottom: 44px;
+  padding-left: 36px;
+  padding-right: 36px;
+}
+
+.text {
+  font-size: 18px !important;
+  color: #545454;
+}
+
+.form {
+  button {
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    height: 40px;
+  }
+}
+
+.radio {
+  width: 100%;
+  display: flex;
+
+  & label {
+    width: 33%;
+    display: flex;
+
+    & span {
+      margin: auto;
+    }
+  }
+}
+
+.email {
+  margin: auto;
+  max-width: 430px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &>* {
+    margin: 5px;
+  }
+
+  &>span {
+    font-size: 16px;
+    text-align: center;
+  }
+
+  button {
+    height: 40px;
+  }
+
+  div {
+    min-width: 70%;
+  }
+}
+
+.date {
+  display: block;
+  margin-top: 60px;
+}
+
+.buttonLabel {
+  font-size: 12px;
+  color: #545454;
+}
+
+.footer {
+  background-color: #fff;
+  margin: auto;
+
+  a {
+    text-decoration: underline;
+    line-height: 40px;
+    font-size: 16px;
+    color: #000;
+
+    &:hover {
+      color: #6B6B6B;
+    }
+  }
+}
+
+.howWorks {
+  margin: auto;
+  max-width: 700px;
+  padding-top: 64px;
+  padding-bottom: 64px;
+  padding-left: 24px;
+  padding-right: 24px;
+
+  ul {
+    margin-top: 56px;
+  }
+}
+
+.support {
+  margin: auto;
+  max-width: 950px;
+  padding-top: 64px;
+  padding-bottom: 64px;
+  padding-left: 24px;
+  padding-right: 24px;
+}
