@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react"
 import { Button, Card, Col, Divider, Form, Input, Layout, Radio, Row, Select, Typography } from "antd"
 import Image from "next/image"
-import dayjs, { Dayjs } from 'dayjs'
-import DateRangePicker from "tw-daterange"
+import dayjs from 'dayjs'
 import styles from './styles.module.scss'
 import img from '@/assets/images/form.svg'
 import { BaseOptionType } from "antd/es/select"
