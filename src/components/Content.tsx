@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { Button, Card, Col, Divider, Form, Input, Layout, Radio, Row, Select, Typography } from "antd"
 import Image from "next/image"
 import dayjs from 'dayjs'
+import useMedia from 'use-media';
 import styles from './styles.module.scss'
 import img from '@/assets/images/form.svg'
 import { BaseOptionType } from "antd/es/select"
@@ -29,44 +30,43 @@ const initialValues = { equipment: '', pickup: '', dropoff: '' }
 const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 
 export const Content = () => {
+  const isDesctop = useMedia({ minWidth: 600 });
   const [options, setOptions] = useState<BaseOptionType[]>([])
   const [values, setValues] = useState(initialValues)
-  const [email, setEmail] = useState('')
+  const [phone, setPhone] = useState('')
   const [calendar, setCalendar] = useState<any>()
   const [selected, setSelected] = useState<any>()
   const [form] = Form.useForm()
-  const [emailForm] = Form.useForm()
+  const [phoneForm] = Form.useForm()
   const isFull = Object.values(values).every(Boolean)
   const valuesString = Object.values(values).join()
-
-  console.log(options)
 
   useEffect(() => {
     (async () => {
       const response = await fetch('https://severpomnit.pythonanywhere.com/cities');
       const json = await response.json();
-      console.log(json)
 
       setOptions(json.map(({ id, name }: Record<'id' | 'name', string>) => ({ value: id, label: name })))
     })()
   }, [])
 
   useEffect(() => {
-    if (email && isFull) {
+    if (phone && isFull) {
       (async () => {
-        const response = await fetch(`https://severpomnit.pythonanywhere.com/quote?from=${values.pickup}&to=${values.equipment}&type=${values.dropoff}&phone=${email}`);
+        const response = await fetch(`https://severpomnit.pythonanywhere.com/quote?from=${values.pickup}&to=${values.equipment}&type=${values.dropoff}&phone=${phone}`);
         const json = await response.json();
 
         setCalendar(json.records)
       })()
     }
-  }, [valuesString, isFull, values, email])
+  }, [valuesString, isFull, values, phone])
 
   const cellRender = (day: string, index: number) => {
     const date = dayjs(day).date()
     const current = new Date(day) >= new Date(selected?.start_date) && new Date(day) <= new Date(selected?.end_date)
     const color = calendar[day].price > 600000 ? styles.blue : calendar[day].price > 500000 ? styles.light : ''
     const price = selected?.price - calendar[day].price
+
     return <div
       className={current ? styles.selected : selected ? '' : color}
       onClick={(() => setSelected((prevSelected: any) => prevSelected ? undefined : calendar[day]))}
@@ -82,12 +82,12 @@ export const Content = () => {
     <Layout.Content>
       <Card className={styles.content} bordered={false}>
         <Row gutter={[50, 50]}>
-          <Col span={12}>
+          <Col span={isDesctop ? 12 : 24}>
             <Title level={1}>Get an instant Uber Freight quote</Title>
             <Text className={styles.text}>Enter details to get flat rate shipping quotes for the next 14 days. No signup required.</Text>
             <Image src={img} alt='Image' />
           </Col>
-          <Col span={12}>
+          <Col span={isDesctop ? 12 : 24}>
             <Form layout='vertical' className={styles.form} form={form} initialValues={initialValues} onFinish={setValues}>
               <Form.Item label='Equipment type' name="equipment" rules={[{ required: true }]}>
                 <Radio.Group className={styles.radio} options={radio} optionType="button" buttonStyle="solid" />
@@ -118,14 +118,10 @@ export const Content = () => {
           </Col>
           {isFull && <Col span={24}>
             {calendar ? <>
-              <Row>
-                <Col span={20}>
-                  <Title level={4}>Select shipment dates</Title>
-                </Col>
-                <Col span={4}>
-                  <Title className={styles.refresh} level={5}>Refresh dates</Title>
-                </Col>
-              </Row>
+              <div className={styles.calendarHeader}>
+                <Title level={isDesctop ? 4 : 5}>Select shipment dates</Title>
+                <Title className={styles.refresh} level={5}>Refresh dates</Title>
+              </div>
               <div className={styles.calendar}>
                 {days.map((day) => <Text key={day}>{day}</Text>)}
                 {Object.keys(calendar).map(cellRender)}
@@ -140,11 +136,11 @@ export const Content = () => {
                   <Button className={styles.button} type='primary'>Sign up to book</Button>
                 </Col>
               </Row>}
-            </> : <Form className={styles.email} form={emailForm} onFinish={({ email }) => setEmail(email)}>
-              <Title level={4}>Enter your email to see quotes</Title>
+            </> : <Form className={styles.phone} form={phoneForm} onFinish={({ phone }) => setPhone(phone)}>
+              <Title level={4}>Enter your phone to see quotes</Title>
               <Text>We’ll let you know when there’s a rate change in your lane that might interest you. Unsubscribe at any time.</Text>
-              <Form.Item name="email">
-                <Input type='email' placeholder='email@example.com' />
+              <Form.Item name="phone">
+                <Input type='phone' placeholder='Phone number' />
               </Form.Item>
               <Text className={styles.buttonLabel}>By clicking “See quotes”, I agree that my information will be used in accordance with Uber Freight’s <Link>Privacy Notice</Link>.</Text>
               <Button type='primary' htmlType='submit'>See quotes</Button>

@@ -1,7 +1,8 @@
 'use client'
 import { Col, Layout, Row, Timeline, Typography } from 'antd'
-import styles from './styles.module.scss'
 import Image from 'next/image'
+import useMedia from 'use-media';
+import styles from './styles.module.scss'
 import dryvan from '@/assets/images/dry-van.svg'
 import reefer from '@/assets/images/reefer.svg'
 import flatbed from '@/assets/images/flatbed.svg'
@@ -10,6 +11,7 @@ import ltl from '@/assets/images/ltl.svg'
 const { Title, Text, Link } = Typography
 
 export const Footer = () => {
+  const isDesctop = useMedia({ minWidth: 500 });
   return (
     <Layout.Footer className={styles.footer}>
       <Row>
@@ -47,22 +49,22 @@ export const Footer = () => {
           <Text>Uber Freight currently offers full truck load shipments (FTL) for three trailer types, and less than truckload (LTL).</Text>
           <Link>Learn more</Link>
           <Row gutter={40}>
-            <Col span={12}>
+            <Col span={isDesctop ? 12 : 24}>
               <Image src={dryvan} alt='Dry Van' />
               <Title level={5}>Dry Van</Title>
               <Text>Use 53' dry vans to ship up to 26 standard pallets without temperature requirements</Text>
             </Col>
-            <Col span={12}>
+            <Col span={isDesctop ? 12 : 24}>
               <Image src={reefer} alt='Reefer' />
               <Title level={5}>Reefer</Title>
               <Text>Refrigerated food-grade trailers can carry any type of fresh, temperature-controlled produce</Text>
             </Col>
-            <Col span={12}>
+            <Col span={isDesctop ? 12 : 24}>
               <Image src={flatbed} alt='Flatbed' />
               <Title level={5}>Flatbed</Title>
               <Text>48' and 53' flatbed trailers are available when you don’t need the protection of an enclosed dry van</Text>
             </Col>
-            <Col span={12}>
+            <Col span={isDesctop ? 12 : 24}>
               <Image src={ltl} alt='LTL' />
               <Title level={5}>LTL</Title>
               <Text>Use less than truckload (LTL) when shipping a small quantity of goods that don’t require a full truck load</Text>

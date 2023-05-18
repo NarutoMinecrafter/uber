@@ -1,5 +1,5 @@
 * {
-  font-family: UberMoveText, system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  font-family: Formular, UberMoveText, system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif !important;
   box-sizing: border-box;
   padding: 0;
   margin: 0;
@@ -16,7 +16,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: UberMove, UberMoveText, system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  font-family: Formular, UberMove, UberMoveText, system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif !important;
 }
 
 a {
