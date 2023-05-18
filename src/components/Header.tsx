@@ -8,11 +8,11 @@ const { Title, Link } = Typography
 const title = <Title level={4}>Shipper</Title>
 
 const links = [
-  <Link>Self-service</Link>,
-  <Link>Get a quote</Link>,
-  <Link>Enterprise</Link>,
-  <Link>Testimonials</Link>,
-  <Link>FAQ</Link>
+  <Link key={"Self-service"}>Self-service</Link>,
+  <Link key={"Get a quote"}>Get a quote</Link>,
+  <Link key={"Enterprise"}>Enterprise</Link>,
+  <Link key={"Testimonials"}>Testimonials</Link>,
+  <Link key={"FAQ"}>FAQ</Link>
 ]
 const items = [{ label: title, key: 'menu', children: links.map((link) => ({ type: 'group', label: link })) }]
 
